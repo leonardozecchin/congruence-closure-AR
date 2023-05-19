@@ -1,2 +1,2 @@
 # congruence-closure-AR
-Implementation of the congruence closure algorithm. Automated Reasoning's project.
+Implementation of the congruence closure algorithm with DAG. Automated Reasoning's project.
