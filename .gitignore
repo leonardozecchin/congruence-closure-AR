@@ -1,0 +1,11 @@
+# Ignora i file di sistema Mac
+.DS_store
+
+# Ingora la cartella build
+build
+
+#Ignora la cartella dist
+dist
+
+#Ignora il seguente file
+congruence_closure_algorithm.spec
