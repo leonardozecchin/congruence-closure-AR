@@ -8,4 +8,4 @@ build
 dist
 
 #Ignora il seguente file
-congruence_closure_algorithm.spec
+*.spec
