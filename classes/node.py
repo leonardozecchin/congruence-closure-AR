@@ -29,5 +29,3 @@ class Node:
 
     def setFind(self,find):
         self.find = find
-
-    
