@@ -1,37 +1,33 @@
 class Node:
-    def __init__(self, id: int, fn: str, args: list, find: int, ccpar: set):
+    def __init__(self,id: int,fn: str, args: list, find: int, ccpar: list):
         self.id = id
-        self. fn = fn
-        self.args = list
+        self.fn = fn
+        self.args = args
         self.find = find
         self.ccpar = ccpar
 
-    @property
-    def id(self):
-        return self._id
+    def __str__(self):
+        return "Node: id = {}, fn = {}, args = {}, find = {}, ccpar = {}".format(self.id,self.fn,self.args,self.find,self.ccpar)
+    
+    def getId(self):
+        return self.id
+    
+    def getFn(self):
+        return self.fn
+    
+    def getArgs(self):
+        return self.args
+    
+    def getFind(self):
+        return self.find
+    
+    def getCcpar(self):
+        return self.ccpar
+    
+    def setCcpar(self,ccpar):
+        self.ccpar = ccpar
 
-    @property
-    def fn(self):
-        return self._fn
+    def setFind(self,find):
+        self.find = find
 
-    @property
-    def args(self):
-        return self._args
-
-    @property
-    def find(self):
-        return self._find
-
-    @find.setter
-    def find(self, value):
-        self._find = value
-
-    @property
-    def ccpar(self):
-        return self._ccpar
-
-    def add_ccpar(self, ccpar_id):
-        self._ccpar.add(ccpar_id)
-
-    def remove_ccpar(self, ccpar_id):
-        self._ccpar.remove(ccpar_id)
+    
