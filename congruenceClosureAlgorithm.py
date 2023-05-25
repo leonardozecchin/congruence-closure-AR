@@ -64,7 +64,7 @@ def getFunctionParameters(term : str,matching_par: list) -> list:
     string_parameterters = term[matching_par[-1][0]+1:matching_par[-1][1]]
     commaIndex = getCommaPosition(string_parameterters)
     if commaIndex is None:
-        return term
+        return [string_parameterters]
     string_parameterters = string_parameterters[:commaIndex] + '@' + string_parameterters[commaIndex + 1:]
     parameters = string_parameterters.split('@')
     
@@ -72,7 +72,6 @@ def getFunctionParameters(term : str,matching_par: list) -> list:
     return parameters
 
 def createSubtermSet(formula : str) -> set:
-    #TODO: to be tested
     subterm_set = set()
     for i in formula.split("and"):
         i = i.replace(" ", "")
@@ -113,6 +112,34 @@ def find_matching_pairs(open_indexes, close_indexes):
 
     return matching_pairs
 
+
+def recursiveGetFunctionParameters(term : str) -> list:
+    global parametri
+    parameters = []
+    if term is None:
+        return None
+    opened_par, closed_par = getParenthesisPosition(term) 
+    matching_par = find_matching_pairs(opened_par, closed_par)
+    if matching_par[0] is None:
+        return None
+    string_parameterters = term[matching_par[-1][0]+1:matching_par[-1][1]]
+    if string_parameterters in parametri:
+        return None
+    commaIndex = getCommaPosition(string_parameterters)
+    if commaIndex is None:
+        if string_parameterters not in parametri:
+            parametri.append(string_parameterters)
+            recursiveGetFunctionParameters(string_parameterters)
+        return None
+    string_parameterters = string_parameterters[:commaIndex] + '@' + string_parameterters[commaIndex + 1:]
+    parameters = string_parameterters.split('@')
+    for x in parameters:
+        if x not in parametri:
+            parametri.append(x)
+        if len(x) > 1:
+            recursiveGetFunctionParameters(x)
+
+
 print("CONGRUENCE CLOSURE ALGORITHM with DAG")
 print("Menù (how to type formulas):")
 print("\t* AND --> and\n\t* OR --> or\n\t* NOT EQUAL --> !=\n\t* f TO THE POWER OF n --> f^n")
@@ -120,19 +147,29 @@ print("Example:\n\t- f(a,b)=a and f(f(a,b),b)!=a\n\t- f(f(f(a)))=a and f(f(f(f(f
 
 F = input("Enter the formula: ")
 print("The formula is: ", F)
-#F = "f(a,b)=a and f(f(a,b),b)!=a"
-#Sf = createSubtermSet("f(f(f(a))=a and f(f(f(f(f(a)))))=a and f(a)!=a")
+
 Sf = createSubtermSet(F)
-#print("The subterm set is: ", Sf)
 Sf = sorted(Sf,key=len,reverse=False)
+
+print("The initial subterm set is: ", Sf)
+
+parametri = list()
+for x in Sf:
+    if len(x) == 1:
+        if x not in parametri:
+            parametri.append(x)
+        continue
+    parametri.append(x)
+    recursiveGetFunctionParameters(x)
+
+Sf = sorted(parametri,key=len)
+
 #The Initial Partition
 P = []
 
 for s in Sf:
     P.append({s})
 
-print("The subterm set is: ", Sf)
-print("The initial partition is: ", P)
 
 opened_parenthesis_position = list()
 closed_parenthesis_position = list()
@@ -149,14 +186,17 @@ parameters_functions = list()
 for i,f in enumerate(Sf):
     parameters_functions.append(getFunctionParameters(f,list_of_matching[i]))
 
-#print("The parameters are: ", parameters)
-#print("The number of parenthesis are: ", num_parenthesis)
-#print("The number of functions are: ", num_functions)
-"""
-print("The opened parenthesis position are: ", opened_parenthesis_position)
-print("The closed parenthesis position are: ", closed_parenthesis_position)"""
-#print("The matching parenthesis are: ", list_of_matching)
 print("The parameters of the functions are: ", parameters_functions)
 
+print("The new subterm set is: ", Sf)
+print("The initial partition is: ", P)
 
-#dag = createDAG(Sf)
+relations = [[]for _ in range(len(Sf))]
+for i,p in enumerate(parameters_functions):
+    if p is not None:
+        for x in p:
+            relations[i].append(Sf.index(x))
+
+print("The relations are: ", relations)
+
+
