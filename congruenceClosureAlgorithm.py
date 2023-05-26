@@ -1,13 +1,8 @@
 from classes.node import Node
+from classes.dag import Dag
 import re
 import queue
 
-# Create the DAG using Node class
-"""def createDAG(sf : set) -> list:
-    dag = []
-    for i in range(len(sf)+1):
-        dag.append(Node(i+1,sf[0],))
-    """
 # Count the number of parenthesis of a formula
 def countParenthesis(formula : str) -> int:
     count = 0
@@ -139,6 +134,22 @@ def recursiveGetFunctionParameters(term : str) -> list:
         if len(x) > 1:
             recursiveGetFunctionParameters(x)
 
+def getParents(i,relations):
+    parents = []
+    for idx, r in enumerate(relations):
+        if i in r:
+            parents.append(idx)
+    return parents
+
+def createDAG(Sf: list, relations: list) -> list:
+    DAG = []
+    for i, term in enumerate(Sf):
+       parents = getParents(i,relations)
+       node = Node(id= i,fn = term[0], args= relations[i],find = i, ccpar=parents)
+       DAG.append(node)
+    
+    return DAG
+
 
 print("CONGRUENCE CLOSURE ALGORITHM with DAG")
 print("Menù (how to type formulas):")
@@ -200,3 +211,14 @@ for i,p in enumerate(parameters_functions):
 print("The relations are: ", relations)
 
 
+
+
+dag = createDAG(Sf,relations)
+print("The DAG is: ")
+for node in dag:
+    print(node)
+
+new_dag = Dag(dag)
+
+node = new_dag.NODE(0)
+print("The node is: ", node)
