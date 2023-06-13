@@ -32,11 +32,23 @@ class Dag:
             return self.FIND(n.getFind())
         
     def UNION(self, id1: int, id2: int) -> None:
+        print(f"UNION {id1} {id2}")
         n1 = self.NODE(id1)
         n2 = self.NODE(id2)
-        n1.setFind(id2)
-        n2.setCcpar(n2.getCcpar() + n1.getCcpar())
-        n1.setCcpar([])
+        n1_ccpar = self.CCPAR(id1)
+        n2_ccpar = self.CCPAR(id2)
+        # n1.setFind(id2)
+        # n1.find = n2.find
+        # TODO: controllare se va bene per casi generali
+        if self.FIND(n1.find) != n1.id:
+            self.NODE(self.FIND(n1.find)).find = n2.find
+        else:
+            n1.find = n2.find
+        # n2.setCcpar(n2.getCcpar() + n1.getCcpar())
+        n2.ccpar = n2_ccpar+ n1_ccpar
+        # n2.setCcpar(self.CCPAR(id2) + self.CCPAR(id1))
+        # n1.setCcpar([])
+        n1.ccpar = []
 
     def CCPAR(self,id: int) -> list:
         return self.NODE(self.FIND(id)).getCcpar()
@@ -51,6 +63,7 @@ class Dag:
             return False
         
     def MERGE(self, id1: int, id2: int) -> None:
+        print(f"MERGE {id1} {id2}")
         if self.FIND(id1) != self.FIND(id2):
             Pi1 = self.CCPAR(id1)
             Pi2 = self.CCPAR(id2)

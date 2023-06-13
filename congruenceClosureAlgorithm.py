@@ -210,9 +210,6 @@ for i,p in enumerate(parameters_functions):
 
 print("The relations are: ", relations)
 
-
-
-
 dag = createDAG(Sf,relations)
 print("The DAG is: ")
 for node in dag:
@@ -222,3 +219,40 @@ new_dag = Dag(dag)
 
 node = new_dag.NODE(0)
 print("The node is: ", node)
+
+# Applicate Congruence Closure Algorithm
+formula = F.strip().replace(" ", "").split("and")
+print("The formula is: ", formula)
+F_plus = [f for f in formula if "!=" not in f]
+F_minus = [f for f in formula if "!=" in f] 
+print("F_plus: ", F_plus)
+print("F_minus: ", F_minus)
+
+def getIndex(f):
+    global Sf
+    if "!" not in f:
+        formula = f.split("=")
+    else:
+        formula = f.split("!=")
+    return Sf.index(formula[0]), Sf.index(formula[1])
+
+
+def congruenceClosureAlgorithm(F_plus, F_minus):
+    global new_dag
+    for f in F_plus:
+        #Step 1
+        idx1,idx2 = getIndex(f)
+        new_dag.MERGE(idx1,idx2)
+    #Step 2
+    for f in F_minus:
+        idx1,idx2 = getIndex(f)
+        if new_dag.FIND(idx1) == new_dag.FIND(idx2):
+            return False
+        else:
+            return True
+
+
+if congruenceClosureAlgorithm(F_plus, F_minus):
+    print("The formula is satisfiable")
+else:
+    print("The formula is not satisfiable")
