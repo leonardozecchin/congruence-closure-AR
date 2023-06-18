@@ -248,11 +248,13 @@ def congruenceClosureAlgorithm(F_plus, F_minus):
         new_dag.MERGE(idx1,idx2)
     #Step 2
     for f in F_minus:
+        satisfiability = False
         idx1,idx2 = getIndex(f)
         if new_dag.FIND(idx1) == new_dag.FIND(idx2):
             return False
         else:
-            return True
+            satisfiability = True
+    return satisfiability
 
 
 if congruenceClosureAlgorithm(F_plus, F_minus):
