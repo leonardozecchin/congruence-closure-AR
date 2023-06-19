@@ -14,3 +14,4 @@ f(f(f(a)))=a and f(f(f(f(f(a)))))=a and f(a)!=a
 f(f(f(a)))=f(f(a)) and f(f(f(f(a))))=a and f(a)!=a
 f(x,y)=f(y,x) and f(a,y)!=f(y,a)
 f(g(x))=g(f(x)) and f(g(f(y)))=x and f(y)=x and g(f(x))!=x
+a=b1 and b1=b2 and b2=b3 and b3=c and f(a1,a1)=a and f(c1,c1)=c and a1=c1 and a!=c

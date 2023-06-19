@@ -56,7 +56,9 @@ def getCommaPosition(term: str,) -> int:
 # Get the parameters of a function
 def getFunctionParameters(term : str,matching_par: list) -> list:
     parameters = []
-    if matching_par[0] is None:
+    if len(matching_par) == 0:
+        return None
+    elif matching_par[0] is None:
         return None
     string_parameterters = term[matching_par[-1][0]+1:matching_par[-1][1]]
     commaIndex = getCommaPosition(string_parameterters)
@@ -116,7 +118,9 @@ def recursiveGetFunctionParameters(term : str, parametri: list) -> list:
         return None
     opened_par, closed_par = getParenthesisPosition(term) 
     matching_par = find_matching_pairs(opened_par, closed_par)
-    if matching_par[0] is None:
+    if len(matching_par)==0:
+        return None
+    elif matching_par[0] is None:
         return None
     string_parameterters = term[matching_par[-1][0]+1:matching_par[-1][1]]
     if string_parameterters in parametri:
@@ -189,7 +193,7 @@ def start_program(F):
     Sf = createSubtermSet(F)
     Sf = sorted(Sf,key=len,reverse=False)
 
-    # print("The initial subterm set is: ", Sf)
+    print("The initial subterm set is: ", Sf)
 
     parametri = list()
     for x in Sf:
