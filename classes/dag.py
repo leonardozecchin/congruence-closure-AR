@@ -7,9 +7,6 @@ class Dag:
     def __str__(self) -> str:
         return "Dag: nodes = {}".format(self.nodes)
     
-    def ciao(self,id):
-        return True
-
     def checkArgs(self, args1: list, args2: list) -> bool:
         if len(args1) != len(args2):
             return False
@@ -39,7 +36,6 @@ class Dag:
         n2_ccpar = self.CCPAR(id2)
         # n1.setFind(id2)
         # n1.find = n2.find
-        # TODO: controllare se va bene per casi generali
         if self.FIND(n1.find) != n1.id:
             self.NODE(self.FIND(n1.find)).find = n2.find
         else:

@@ -15,7 +15,6 @@ In the ***input*** and ***output*** folders there are two types of files:
 2. ***inputToParser.txt*** and ***outputToParser.txt*** : the former containsFormulas that must be parsed and in the latter you will find the algorithm's resulting outcomes.
 
 ## How to run the code
----------------
 Use the following terminal commands within the folder: 
 > python3 mainProgram.py 
 
