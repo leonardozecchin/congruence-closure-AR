@@ -9,3 +9,10 @@ dist
 
 #Ignora il seguente file
 *.spec
+
+report/main.aux
+report/main.log
+report/main.out
+report/main.fls
+report/main.fdb_latexmk
+report/main.synctex.gz
