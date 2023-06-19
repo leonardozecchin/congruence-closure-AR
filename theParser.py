@@ -1,11 +1,11 @@
 import queue
 import time
 import sys
-#
+
 sys.path.insert(0, './code')
 from cca import start_program
 
-f = "imply(eq(x,g(y,z)),eq(f(x),f(g(y,z))))"
+# f = "imply(eq(x,g(y,z)),eq(f(x),f(g(y,z))))"
 
 ops = ["and", "or", "eq", "dis", "imply"]
 

@@ -3,7 +3,7 @@ import sys
 sys.path.insert(0, './code')
 from cca import start_program
 
-filename = "/home/leonardo/Scrivania/Uni/automatedReasoning/congruence-closure-AR/input/input.txt"
+filename = "input/input.txt"
 fin = open(filename, "r")
 fout = open("output/output.txt", "w")
 lines = fin.readlines()
