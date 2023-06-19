@@ -153,9 +153,9 @@ def createDAG(Sf: list, relations: list) -> list:
 
 
 print("CONGRUENCE CLOSURE ALGORITHM with DAG")
-print("Menù (how to type formulas):")
-print("\t* AND --> and\n\t* OR --> or\n\t* NOT EQUAL --> !=\n\t* f TO THE POWER OF n --> f^n")
-print("Example:\n\t- f(a,b)=a and f(f(a,b),b)!=a\n\t- f(f(f(a)))=a and f(f(f(f(f(a)))))=a and f(a)!=a")
+# print("Menù (how to type formulas):")
+# print("\t* AND --> and\n\t* OR --> or\n\t* NOT EQUAL --> !=\n\t* f TO THE POWER OF n --> f^n")
+# print("Example:\n\t- f(a,b)=a and f(f(a,b),b)!=a\n\t- f(f(f(a)))=a and f(f(f(f(f(a)))))=a and f(a)!=a")
 
 # F = input("Enter the formula: ")
 
@@ -183,13 +183,13 @@ def congruenceClosureAlgorithm(F_plus, F_minus,Sf,new_dag):
 
 def start_program(F):
     global parametri
-    print("The formula is: ", F)
+    # print("The formula is: ", F)
     start_time = time.time()
 
     Sf = createSubtermSet(F)
     Sf = sorted(Sf,key=len,reverse=False)
 
-    print("The initial subterm set is: ", Sf)
+    # print("The initial subterm set is: ", Sf)
 
     parametri = list()
     for x in Sf:
@@ -224,10 +224,10 @@ def start_program(F):
     for i,f in enumerate(Sf):
         parameters_functions.append(getFunctionParameters(f,list_of_matching[i]))
 
-    print("The parameters of the functions are: ", parameters_functions)
+    # print("The parameters of the functions are: ", parameters_functions)
 
-    print("The new subterm set is: ", Sf)
-    print("The initial partition is: ", P)
+    # print("The new subterm set is: ", Sf)
+    # print("The initial partition is: ", P)
 
     relations = [[]for _ in range(len(Sf))]
     for i,p in enumerate(parameters_functions):
@@ -235,7 +235,7 @@ def start_program(F):
             for x in p:
                 relations[i].append(Sf.index(x))
 
-    print("The relations are: ", relations)
+    # print("The relations are: ", relations)
 
     dag = createDAG(Sf,relations)
     print("The DAG is: ")
@@ -244,22 +244,22 @@ def start_program(F):
 
     new_dag = Dag(dag)
 
-    node = new_dag.NODE(0)
-    print("The node is: ", node)
+    # node = new_dag.NODE(0)
+    # print("The node is: ", node)
 
     # Applicate Congruence Closure Algorithm
     formula = F.strip().replace(" ", "").split("and")
-    print("The formula is: ", formula)
+    # print("The formula is: ", formula)
     F_plus = [f for f in formula if "!=" not in f]
     F_minus = [f for f in formula if "!=" in f] 
-    print("F_plus: ", F_plus)
-    print("F_minus: ", F_minus)
-
+    # print("F_plus: ", F_plus)
+    # print("F_minus: ", F_minus)
+    print("The algorithm steps are:")
     if congruenceClosureAlgorithm(F_plus, F_minus,Sf,new_dag):
-        print("The formula is satisfiable")
+        print("The formula is SATISFIABLE")
         return True
     else:
-        print("The formula is not satisfiable")
+        print("The formula is UNSATISFIABLE")
         return False
 
     

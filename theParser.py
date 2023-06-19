@@ -1,6 +1,10 @@
 import queue
-from cca import start_program
 import time
+import sys
+#
+sys.path.insert(0, './code')
+from cca import start_program
+
 f = "imply(eq(x,g(y,z)),eq(f(x),f(g(y,z))))"
 
 ops = ["and", "or", "eq", "dis", "imply"]
@@ -84,14 +88,12 @@ def getCommaPosition(term: str,) -> int:
 
 def printer(fun,parameters):
     global pars
-    if fun == 'and' or fun == 'or':
-        print(f'{parameters[0]} {fun} {parameters[1]}')
-    elif fun == 'eq':
+    if fun == 'eq':
         pars.append(f'{parameters[0]}={parameters[1]}')
-        print(f'{parameters[0]}={parameters[1]}')
+        # print(f'{parameters[0]}={parameters[1]}')
     elif fun == 'dis':
         pars.append(f'{parameters[0]}!={parameters[1]}')
-        print(f'{parameters[0]}!={parameters[1]}')
+        # print(f'{parameters[0]}!={parameters[1]}')
 
 def getFirstFun(expression):
     opened_parenthesis_position, _ = getParenthesisPosition(expression)
@@ -115,8 +117,7 @@ def parser(expression):
         return None
     matching_pairs = find_matching_pairs(opened_parenthesis_position, closed_parenthesis_position)
     parametri_fun_princ = getFunctionParameters(expression,matching_pairs)
-    # printer(first_function,parametri_fun_princ)
-    print(parametri_fun_princ)
+    # print(parametri_fun_princ)
 
     if parametri_fun_princ is None:
         return None
@@ -130,7 +131,7 @@ def parser(expression):
         ff_p = deMorganLaws[ff]
         parametri_fun_princ[0] = parametri_fun_princ[0].replace(ff,ff_p)
         formula = 'or(' + parametri_fun_princ[0] + ',' + parametri_fun_princ[1] + ')'
-        print(formula)
+        # print(formula)
         return formula
     
     if first_function == 'or':
@@ -142,7 +143,7 @@ def parser(expression):
         ff_p = deMorganLaws[ff]
         parametri_fun_princ[1] = parametri_fun_princ[1].replace(ff,ff_p)
         formula = 'and(' + parametri_fun_princ[0] + ',' + parametri_fun_princ[1] + ')'
-        print(formula)
+        # print(formula)
         return formula
     
 def getParams(expression):
@@ -164,32 +165,36 @@ def getParams(expression):
         getParams(p)
 
 
-filename = "input/inputToParser.txt"
-file = open(filename, "r")
-fout = open("output/outputParser.txt", "w")
-lines = file.readlines()
+if __name__ == "__main__":
 
-for line in lines:
-    pars = []
-    f = line.strip()
+    filename = "input/inputToParser.txt"
+    file = open(filename, "r")
+    fout = open("output/outputParser.txt", "w")
+    lines = file.readlines()
 
-    while getFirstFun(f) != 'and':
-        f = parser(f)
+    for i,line in enumerate(lines):
 
-    getParams(f)
-    final_formula = ''
-    for i,p in enumerate(pars):
-        if i != len(pars)-1:
-            final_formula += p + ' ' + getFirstFun(f) + ' '
+        pars = []
+        f = line.strip()
+        print("\n*********************")
+        print(f"Formula {i+1}: {f}")
+        while getFirstFun(f) != 'and':
+            f = parser(f)
+
+        getParams(f)
+        final_formula = ''
+        for i,p in enumerate(pars):
+            if i != len(pars)-1:
+                final_formula += p + ' ' + getFirstFun(f) + ' '
+            else:
+                final_formula += p
+
+        print("The final formula is:", final_formula)
+
+
+        start_time = time.time()
+        satisfiability = start_program(final_formula.strip())
+        if satisfiability:
+            print(f"{line.strip()} --> SATISFIABLE. Time: {time.time()-start_time}", file=fout)
         else:
-            final_formula += p
-
-    print("The final formula is:", final_formula)
-
-
-    start_time = time.time()
-    satisfiability = start_program(final_formula.strip())
-    if satisfiability:
-        print(f"{line.strip()} --> SATISFIABLE. Time: {time.time()-start_time}", file=fout)
-    else:
-        print(f"{line.strip()} --> UNSATISFIABLE. Time: {time.time() - start_time}", file=fout)
+            print(f"{line.strip()} --> UNSATISFIABLE. Time: {time.time() - start_time}", file=fout)
