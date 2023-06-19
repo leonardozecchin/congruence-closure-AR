@@ -1,9 +1,10 @@
-f(a,b)=a and f(f(a,b),b)!=a --> UNSATISFIABLE. Time: 0.0003325939178466797
-f(f(f(a)))=a and f(f(f(f(f(a)))))=a and f(a)!=a --> UNSATISFIABLE. Time: 0.00035762786865234375
-f(f(f(a)))=f(a) and f(f(a))=a and f(a)!=a --> SATISFIABLE. Time: 0.00016736984252929688
-f(f(f(f(f(a)))))=a and f(f(f(a)))=a and f(f(a))!=a --> UNSATISFIABLE. Time: 0.0003559589385986328
-f(x)=f(y) and x!=y --> SATISFIABLE. Time: 0.00010418891906738281
-x=y and f(x)!=f(y) --> UNSATISFIABLE. Time: 0.00011730194091796875
-f(a)=a and f(f(a))!=a --> UNSATISFIABLE. Time: 0.00012564659118652344
-x=g(x,z) and f(x)!=f(g(y,z)) --> SATISFIABLE. Time: 0.00020623207092285156
-f(f(f(f(f(a)))))=a and f(a)!=a --> SATISFIABLE. Time: 0.0002753734588623047
+f(a,b)=a and f(f(a,b),b)!=a --> UNSATISFIABLE. Time: 0.00033092498779296875
+f(f(f(a)))=a and f(f(f(f(f(a)))))=a and f(a)!=a --> UNSATISFIABLE. Time: 0.00037288665771484375
+f(f(f(a)))=f(a) and f(f(a))=a and f(a)!=a --> SATISFIABLE. Time: 0.0001652240753173828
+f(f(f(f(f(a)))))=a and f(f(f(a)))=a and f(f(a))!=a --> UNSATISFIABLE. Time: 0.00035452842712402344
+f(x)=f(y) and x!=y --> SATISFIABLE. Time: 0.00011134147644042969
+x=y and f(x)!=f(y) --> UNSATISFIABLE. Time: 0.00011706352233886719
+f(a)=a and f(f(a))!=a --> UNSATISFIABLE. Time: 0.00012159347534179688
+x=g(x,z) and f(x)!=f(g(y,z)) --> SATISFIABLE. Time: 0.0002040863037109375
+f(f(f(f(f(a)))))=a and f(a)!=a --> SATISFIABLE. Time: 0.00028133392333984375
+f(g(a))=g(f(a)) and f(g(f(b)))=a and f(b)=a and g(f(a))!=a --> UNSATISFIABLE. Time: 0.0003819465637207031

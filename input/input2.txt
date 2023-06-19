@@ -1,0 +1,16 @@
+a=b and a!=b
+a=b and c!=b
+f(a)=b and f(a)!=b
+f(a)=b and f(a)!=c
+f(f(a))=f(b) and f(f(a))!=f(b)
+f(f(a))=f(b) and f(f(a))!=c
+f(a,b)=b and f(a,b)!=b
+f(a,b)=b and f(a,b)!=c
+b=d and f(b)=d and f(d)=a and a!=b
+f(x)=f(y) and x!=y
+x=y and f(x)!=f(y)
+f(a,b)=a and f(f(a,b),b)!=a
+f(f(f(a)))=a and f(f(f(f(f(a)))))=a and f(a)!=a
+f(f(f(a)))=f(f(a)) and f(f(f(f(a))))=a and f(a)!=a
+f(x,y)=f(y,x) and f(a,y)!=f(y,a)
+f(g(x))=g(f(x)) and f(g(f(y)))=x and f(y)=x and g(f(x))!=x

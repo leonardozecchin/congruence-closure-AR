@@ -7,3 +7,4 @@ x=y and f(x)!=f(y)
 f(a)=a and f(f(a))!=a
 x=g(x,z) and f(x)!=f(g(y,z))
 f(f(f(f(f(a)))))=a and f(a)!=a
+f(g(a))=g(f(a)) and f(g(f(b)))=a and f(b)=a and g(f(a))!=a

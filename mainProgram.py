@@ -3,9 +3,9 @@ import sys
 sys.path.insert(0, './code')
 from cca import start_program
 
-filename = "input/input.txt"
+filename = "input/input2.txt"
 fin = open(filename, "r")
-fout = open("output/output.txt", "w")
+fout = open("output/output2.txt", "w")
 lines = fin.readlines()
 
 for i,line in enumerate(lines):

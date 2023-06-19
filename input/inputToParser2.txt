@@ -1,0 +1,2 @@
+and(eq(f(g(a)),g(f(a))),eq(f(g(f(b))),a),eq(f(b),a),dis(eq(g(f(a)),a),eq(g(f(a)),b)))
+and(eq(f(f(f(a))),a),and(eq(f(f(f(f(f(a))))),a),dis(f(a),a)))
