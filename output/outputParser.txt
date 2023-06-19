@@ -1,0 +1,11 @@
+and(eq(f(a,b),a),dis(f(f(a,b),b),a)) --> UNSATISFIABLE. Time: 0.0003628730773925781
+and(eq(f(f(f(a))),a),and(eq(f(f(f(f(f(a))))),a),dis(f(a),a))) --> UNSATISFIABLE. Time: 0.0004086494445800781
+and(eq(f(f(f(a))),f(a)),and(eq(f(f(a)),a),dis(f(a),a))) --> SATISFIABLE. Time: 0.00020456314086914062
+and(eq(f(f(f(f(f(a))))),a),and(eq(f(f(f(a))),a),dis(f(a),a))) --> UNSATISFIABLE. Time: 0.00039005279541015625
+and(eq(f(x),f(y)),dis(x,y)) --> SATISFIABLE. Time: 0.00015473365783691406
+and(eq(x,y),dis(f(x),f(y))) --> UNSATISFIABLE. Time: 0.00015878677368164062
+and(eq(f(a),a),dis(f(f(a)),a)) --> UNSATISFIABLE. Time: 0.0001556873321533203
+and(eq(x,g(x,z)),dis(f(x),f(g(y,z)))) --> SATISFIABLE. Time: 0.00024628639221191406
+and(eq(f(f(f(f(f(a))))),a),dis(f(a),a)) --> SATISFIABLE. Time: 0.0003101825714111328
+imply(eq(x,g(y,z)),eq(f(x),f(g(y,z)))) --> UNSATISFIABLE. Time: 0.00023412704467773438
+or(dis(x,g(y,z)),eq(f(x),f(g(y,z)))) --> UNSATISFIABLE. Time: 0.0002143383026123047

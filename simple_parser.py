@@ -9,6 +9,8 @@ f = "and(eq(f(f(f(a))),f(a)),and(eq(f(f(a)),a),dis(f(a),a)))"
 ciao = "imply(eq(x,g(y,z)),eq(f(x),f(g(y,z))))"
 dnf_ciao ="and(eq(x,g(y,z)),dis(f(x),f(g(y,z))))" 
 
+
+
 #Function that returns the position of the parenthesis, one list for the opened parenthesis and one list for the closed parenthesis
 def getParenthesisPosition(term):
     opened_parenthesis_position = list()
@@ -121,7 +123,7 @@ def getFirstFun(expression):
     return expression[:opened_parenthesis_position[0]]
 
 
-getParams(f)
+getParams(ciao)
 final_formula = ''
 for i,p in enumerate(pars):
     if i != len(pars)-1:

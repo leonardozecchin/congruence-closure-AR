@@ -1,7 +1,7 @@
 from cca import start_program
 import time
 
-filename = "/Users/leonardozecchin/uni/automatedReasoning/congruence-closure-AR/input/input.txt"
+filename = "/home/leonardo/Scrivania/Uni/automatedReasoning/congruence-closure-AR/input/input.txt"
 fin = open(filename, "r")
 fout = open("output/output.txt", "w")
 lines = fin.readlines()

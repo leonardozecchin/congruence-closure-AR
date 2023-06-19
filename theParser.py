@@ -1,8 +1,7 @@
 import queue
 from cca import start_program
 import time
-ciao = "imply(eq(x,g(y,z)),eq(f(x),f(g(y,z))))"
-
+f = "imply(eq(x,g(y,z)),eq(f(x),f(g(y,z))))"
 
 ops = ["and", "or", "eq", "dis", "imply"]
 
@@ -81,7 +80,7 @@ def getCommaPosition(term: str,) -> int:
     
     return comma_indexes[values.index(True)]
 
-pars = []
+
 
 def printer(fun,parameters):
     global pars
@@ -164,23 +163,33 @@ def getParams(expression):
     for p in parametri_fun_princ:
         getParams(p)
 
-while getFirstFun(ciao) != 'and':
-    ciao = parser(ciao)
 
-getParams(ciao)
-final_formula = ''
-for i,p in enumerate(pars):
-    if i != len(pars)-1:
-        final_formula += p + ' ' + getFirstFun(ciao) + ' '
+filename = "input/inputToParser.txt"
+file = open(filename, "r")
+fout = open("output/outputParser.txt", "w")
+lines = file.readlines()
+
+for line in lines:
+    pars = []
+    f = line.strip()
+
+    while getFirstFun(f) != 'and':
+        f = parser(f)
+
+    getParams(f)
+    final_formula = ''
+    for i,p in enumerate(pars):
+        if i != len(pars)-1:
+            final_formula += p + ' ' + getFirstFun(f) + ' '
+        else:
+            final_formula += p
+
+    print("The final formula is:", final_formula)
+
+
+    start_time = time.time()
+    satisfiability = start_program(final_formula.strip())
+    if satisfiability:
+        print(f"{line.strip()} --> SATISFIABLE. Time: {time.time()-start_time}", file=fout)
     else:
-        final_formula += p
-
-print("The final formula is:", final_formula)
-
-
-start_time = time.time()
-satisfiability = start_program(final_formula.strip())
-if satisfiability:
-    print(f"{final_formula} --> SATISFIABLE. Time: {time.time()-start_time}")
-else:
-    print(f"{final_formula} --> UNSATISFIABLE. Time: {time.time() - start_time}")
+        print(f"{line.strip()} --> UNSATISFIABLE. Time: {time.time() - start_time}", file=fout)

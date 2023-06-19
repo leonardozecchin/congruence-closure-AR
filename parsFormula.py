@@ -1,7 +1,8 @@
 import queue
 from cca import start_program
 import time
-ciao = "imply(eq(x,g(y,z)),eq(f(x),f(g(y,z))))"
+f = "imply(eq(x,g(y,z)),eq(f(x),f(g(y,z))))"
+f = "and(eq(f(f(f(a))),a),and(eq(f(f(f(f(f(a))))),a),dis(f(a),a)))"
 
 
 ops = ["and", "or", "eq", "dis", "imply"]
@@ -164,14 +165,14 @@ def getParams(expression):
     for p in parametri_fun_princ:
         getParams(p)
 
-while getFirstFun(ciao) != 'and':
-    ciao = parser(ciao)
+while getFirstFun(f) != 'and':
+    f = parser(f)
 
-getParams(ciao)
+getParams(f)
 final_formula = ''
 for i,p in enumerate(pars):
     if i != len(pars)-1:
-        final_formula += p + ' ' + getFirstFun(ciao) + ' '
+        final_formula += p + ' ' + getFirstFun(f) + ' '
     else:
         final_formula += p
 
