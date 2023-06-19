@@ -1,0 +1,130 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+\usepackage{listings}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Congruence Closure Algorithm}
+\author{Leonardo Zecchin VR462541}
+
+\begin{document}
+\maketitle
+
+
+\section{Introduction}
+
+This paper presents the research conducted within the scope of the Automatic Reasoning course for the academic year 2022/2023. Specifically, the focus lies on the implementation of the Congruence Closure Algorithm utilizing Directed Acyclic Graphs (DAGs).\\
+The content of the project can be found at the following link: \href{https://github.com/leonardozecchin/congruence-closure-AR.git}{Leonardo Zecchin's project}.
+
+\section{Implementation}
+
+\subsection{Project structure}
+
+\begin{enumerate}
+\item The \textit{mainProgram} program implements the algorithm by reading an input file that contains formulas in normal form, e.g., \texttt{f(a,b)=a and f(f(a,b),b)!=a}.
+\item The \textit{theParser.py} program implements the algorithm by reading an input file that contains the formulas that need to be brought into DNF form and then brought to normal form, e.g., \texttt{and(eq(f(a,b),a),dis(f(f(a,b),b),a))} becomes \texttt{f(a,b)=a and f(f(a,b),b)!=a};\\ or \texttt{imply(eq(x,g(y,z)),eq(f(x),f(g(y,z))))} becomes \texttt{and(eq(x,g(y,z)),dis(f(x),f(g(y,z)))) and after \texttt{x=g(y,z) and f(x)!=f(g(y,z))}}.
+\end{enumerate}
+
+Within the \texttt{code} folder are the codes that are used by the main programs, in particular \texttt{cca} is used for the \textbf{Congruence Closure Algorithm}, while the other programs were used during implementation.
+
+Inside the \texttt{classes} folder, you will find two important classes: \texttt{dag} and \texttt{node}, which are utilized by the algorithm.
+
+In the \texttt{input} and \texttt{output} folders, there are two types of files:
+\begin{enumerate}
+\item \texttt{input.txt} and \texttt{output.txt}: the former contains the formulas in the normal form, and in the latter, you will find the algorithm's resulting outcomes.
+\item \texttt{inputToParser.txt} and \texttt{outputToParser.txt}: the former contains formulas that must be parsed, and in the latter, you will find the algorithm's resulting outcomes.
+\end{enumerate}
+
+\subsection{The Algorithm}
+The structure of the algorithm is the following:\\
+Given $\Sigma_{\mathrm{E}}$-formula
+$$
+F: s_1=t_1 \wedge \cdots \wedge s_m=t_m \wedge s_{m+1} \neq t_{m+1} \wedge \cdots \wedge s_n \neq t_n
+$$
+with subterm set $S_F$, perform the following steps:
+\begin{enumerate}
+    \item Construct the initial DAG for the subterm set $S_F$.
+    \item For $i \in\{1, \ldots, m\}$, MERGE $s_i t_i$.
+    \item If FIND $s_i=$ FIND $t_i$ for some $i \in\{m+1, \ldots, n\}$, return unsatisfiable.
+    \item Otherwise (if FIND $s_i \neq$ FIND $t_i$ for all $i \in\{m+1, \ldots, n\}$ ) return satisfiable.
+\end{enumerate}
+
+Inside the \textbf{\texttt{dag.py}} you will find the implementation of the algorithm's functions: \textit{MERGE}, \textit{UNION}, \textit{CONGRUENT}, \textit{CCPAR}, \textit{FIND} and \textit{NODE}, the specific explanation of functions is outside the scope of the paper. \\
+
+The implementation of the algorithm is within the \textbf{cca.py} in particular the function is the \texttt{congruenceClosureAlgorithm} which takes in input: 
+\begin{enumerate}
+    \item F\_plus: it contains the formulas with equality (\textit{=});
+    \item F\_minus: it contains the formulas with disequality (\textit{$\neq$});
+    \item Sf: the subterm set;
+    \item new\_dag: is the DAG that represents the subterm set.
+\end{enumerate}
+
+\begin{lstlisting}
+def congruenceClosureAlgorithm(F_plus, F_minus,Sf,new_dag):
+    for f in F_plus:
+        #Step 1
+        idx1,idx2 = getIndex(f,Sf)
+        new_dag.MERGE(idx1,idx2)
+    #Step 2
+    for f in F_minus:
+        idx1,idx2 = getIndex(f,Sf)
+        if new_dag.FIND(idx1) == new_dag.FIND(idx2):
+            return False
+        else:
+            return True
+\end{lstlisting}
+
+
+In the \texttt{congruenceClosureAlgorithm} there are the implementation the second, the third and fourth steps.
+
+
+\subsection{Differences with pseudocode}
+
+The only difference between my code and the pseudocode is in the \texttt{UNION} function:
+\begin{lstlisting}
+    def UNION(self, id1: int, id2: int) -> None:
+        print(f"UNION {id1} {id2}")
+        n1 = self.NODE(id1)
+        n2 = self.NODE(id2)
+        n1_ccpar = self.CCPAR(id1)
+        n2_ccpar = self.CCPAR(id2)
+        if self.FIND(n1.find) != n1.id:
+            self.NODE(self.FIND(n1.find)).find = n2.find
+        else:
+            n1.find = n2.find
+        n2.ccpar = n2_ccpar+ n1_ccpar
+        n1.ccpar = []
+\end{lstlisting}
+I introduced the \texttt{if/else} statement to address scenarios in which the algorithm needs to modify the find field of the n1 node, but it is connected to another node. In such cases, I must also modify the find field of the node linked to n1. Additionally, a notable distinction is that UNION stores the respective \textbf{CCPAR} values in \texttt{n1\_ccpar} and \texttt{n2\_ccpar }prior to altering these fields.
+
+\section{Results}
+
+In this section we show the results obtain with the algorithm.
+
+\subsection{Table}
+\begin{tabular}{ |p{6cm}||p{4.5cm}|p{3cm}|p{3cm}|  }
+ \hline
+ \multicolumn{4}{|c|}{Experiments} \\
+ \hline
+ Formulas & DNF &Satisfiability&Time execution\\
+ \hline
+ -imply(eq(x,g(y,z)),eq(f(x),f(g(y,z))))   & x=g(y,z)andf(x)!=f(g(y,z)) &UNSAT&  0.0004217\\
+ -and(eq(f(a,b),a),dis(f(f(a,b),b),a))&  f(a,b)=aandf(f(a,b),b)!=a  & UNSAT   &0.000449\\
+ -and(eq(f(f(f(a))),a),and (eq(f(f(f(f(f(a))))),a),dis(f(a),a))) &f(f(f(a)))=aand f(f(f(f(f(a)))))=a\space and f(a)!=a & UNSAT&  0.0006108\\
+ -and(eq(f(f(f(a))),f(a)), and(eq(f(f(a)),a),dis(f(a),a))) &f(f(f(a)))=f(a)and f(f(a))=a andf(a)!=a & SAT&  0.000388\\
+ -and(eq(x,g(x,z)),dis(f(x),f(g(y,z))))& x=g(x,z)and f(x)!=f(g(y,z)) & SAT&0.00032\\
+ \hline
+\end{tabular}
+
+
+\end{document}

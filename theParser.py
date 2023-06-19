@@ -173,7 +173,7 @@ if __name__ == "__main__":
     lines = file.readlines()
 
     for i,line in enumerate(lines):
-
+        start_time = time.time()
         pars = []
         f = line.strip()
         print("\n*********************")
@@ -192,7 +192,7 @@ if __name__ == "__main__":
         print("The final formula is:", final_formula)
 
 
-        start_time = time.time()
+        
         satisfiability = start_program(final_formula.strip())
         if satisfiability:
             print(f"{line.strip()} --> SATISFIABLE. Time: {time.time()-start_time}", file=fout)
