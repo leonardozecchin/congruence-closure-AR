@@ -62,6 +62,7 @@ class Dag:
             return False
         
     def MERGE(self, id1: int, id2: int) -> None:
+        b = True
         print(f"MERGE {id1} {id2}")
         if self.FIND(id1) != self.FIND(id2):
             Pi1 = self.CCPAR(id1)
@@ -69,5 +70,8 @@ class Dag:
             self.UNION(id1,id2)
             for i in Pi1:
                 for j in Pi2:
-                    if self.FIND(i) != self.FIND(j) and self.CONGRUENT(i,j) and j not in self.forbidList(i):
-                        self.MERGE(i,j)
+                    if j in self.forbidList(i):
+                        return False
+                    if self.FIND(i) != self.FIND(j) and self.CONGRUENT(i,j) :
+                        b = self.MERGE(i,j)
+                        return b 

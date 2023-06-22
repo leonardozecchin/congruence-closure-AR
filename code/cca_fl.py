@@ -1,5 +1,5 @@
-from classes.node import Node
-from classes.dag import Dag
+from classes.nodeFl import Node
+from classes.dagFL import Dag
 import re
 import queue
 import time
@@ -198,7 +198,9 @@ def congruenceClosureAlgorithm(F_plus, F_minus,Sf,new_dag):
         idx1,idx2 = getIndex(f,Sf)
         if idx2 in new_dag.forbidList(idx1) or idx1 in new_dag.forbidList(idx2):
             return False
-        new_dag.MERGE(idx1,idx2)
+        b = new_dag.MERGE(idx1,idx2)
+        if b == False:
+            return False
     #Step 2
     for f in F_minus:
         idx1,idx2 = getIndex(f,Sf)
