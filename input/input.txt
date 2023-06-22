@@ -1,11 +1,18 @@
-f(f(f(a)))=a and f(f(f(f(f(a)))))=a and f(a)!=a
+a=b and a!=b
+a=b and c!=b
 f(a)=b and f(a)!=b
-x=y and f(x)!=f(y)
+f(a)=b and f(a)!=c
+f(f(a))=f(b) and f(f(a))!=f(b)
+f(f(a))=f(b) and f(f(a))!=c
+f(a,b)=b and f(a,b)!=b
+f(a,b)=b and f(a,b)!=c
+b=d and f(b)=d and f(d)=a and a!=b
 f(x)=f(y) and x!=y
+x=y and f(x)!=f(y)
 f(a,b)=a and f(f(a,b),b)!=a
-f(f(f(a)))=f(a) and f(f(a))=a and f(a)!=a
-f(f(f(f(f(a)))))=a and f(f(f(a)))=a and f(f(a))!=a
-f(a)=a and f(f(a))!=a
+f(f(f(a)))=a and f(f(f(f(f(a)))))=a and f(a)!=a
+f(f(f(a)))=f(f(a)) and f(f(f(f(a))))=a and f(a)!=a
+f(x,y)=f(y,x) and f(a,y)!=f(y,a)
+f(g(x))=g(f(x)) and f(g(f(y)))=x and f(y)=x and g(f(x))!=x
+a=b1 and b1=b2 and b2=b3 and b3=c and f(a1,a1)=a and f(c1,c1)=c and a1=c1 and a!=c
 x=g(x,z) and f(x)!=f(g(y,z))
-f(f(f(f(f(a)))))=a and f(a)!=a
-f(g(a))=g(f(a)) and f(g(f(b)))=a and f(b)=a and g(f(a))!=a
