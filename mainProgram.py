@@ -3,9 +3,9 @@ import sys
 sys.path.insert(0, '/home/leonardo/Scrivania/Uni/automatedReasoning/congruence-closure-AR/code')
 from cca import start_program
 
-filename = "/home/leonardo/Scrivania/Uni/automatedReasoning/congruence-closure-AR/input/input2.txt"
+filename = "/home/leonardo/Scrivania/Uni/automatedReasoning/congruence-closure-AR/input/input.txt"
 fin = open(filename, "r")
-fout = open("/home/leonardo/Scrivania/Uni/automatedReasoning/congruence-closure-AR/output/output2.txt", "w")
+fout = open("/home/leonardo/Scrivania/Uni/automatedReasoning/congruence-closure-AR/output/output1.txt", "w")
 lines = fin.readlines()
 
 for i,line in enumerate(lines):

@@ -1,9 +1,10 @@
-f(a,b)=a and f(f(a,b),b)!=a
 f(f(f(a)))=a and f(f(f(f(f(a)))))=a and f(a)!=a
+f(a)=b and f(a)!=b
+x=y and f(x)!=f(y)
+f(x)=f(y) and x!=y
+f(a,b)=a and f(f(a,b),b)!=a
 f(f(f(a)))=f(a) and f(f(a))=a and f(a)!=a
 f(f(f(f(f(a)))))=a and f(f(f(a)))=a and f(f(a))!=a
-f(x)=f(y) and x!=y
-x=y and f(x)!=f(y)
 f(a)=a and f(f(a))!=a
 x=g(x,z) and f(x)!=f(g(y,z))
 f(f(f(f(f(a)))))=a and f(a)!=a
