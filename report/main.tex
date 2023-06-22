@@ -20,6 +20,7 @@
 \begin{document}
 \maketitle
 
+If you haven't read the \texttt{README.md} file, I suggest you do so before reading this report.
 
 \section{Introduction}
 
@@ -31,8 +32,9 @@ The content of the project can be found at the following link: \href{https://git
 \subsection{Project structure}
 
 \begin{enumerate}
-\item The \textit{mainProgram} program implements the algorithm by reading an input file that contains formulas in normal form, e.g., \texttt{f(a,b)=a and f(f(a,b),b)!=a}.
+\item The \textit{mainProgram.py} program implements the algorithm by reading an input file that contains formulas in normal form, e.g., \texttt{f(a,b)=a and f(f(a,b),b)!=a}.
 \item The \textit{theParser.py} program implements the algorithm by reading an input file that contains the formulas that need to be brought into DNF form and then brought to normal form, e.g., \texttt{and(eq(f(a,b),a),dis(f(f(a,b),b),a))} becomes \texttt{f(a,b)=a and f(f(a,b),b)!=a};\\ or \texttt{imply(eq(x,g(y,z)),eq(f(x),f(g(y,z))))} becomes \texttt{and(eq(x,g(y,z)),dis(f(x),f(g(y,z)))) and after \texttt{x=g(y,z) and f(x)!=f(g(y,z))}}.
+\item The \textit{mainProgramWithFL.py} program implements the algorithm by reading an input file that contains formulas in normal form, e.g., \texttt{f(a,b)=a and f(f(a,b),b)!=a} but it use the \textbf{Forbidden List}.
 \end{enumerate}
 
 Within the \texttt{code} folder are the codes that are used by the main programs, in particular \texttt{cca} is used for the \textbf{Congruence Closure Algorithm}, while the other programs were used during implementation.
@@ -107,11 +109,27 @@ The only difference between my code and the pseudocode is in the \texttt{UNION} 
 \end{lstlisting}
 I introduced the \texttt{if/else} statement to address scenarios in which the algorithm needs to modify the find field of the n1 node, but it is connected to another node. In such cases, I must also modify the find field of the node linked to n1. Additionally, a notable distinction is that UNION stores the respective \textbf{CCPAR} values in \texttt{n1\_ccpar} and \texttt{n2\_ccpar }prior to altering these fields.
 
+\pagebreak
+\section{Forbidden List}
+I tried to implement the forbidden list. There are some files where I implement the forbidden list:
+\begin{enumerate}
+    \item \texttt{cca\_fl.py} in the \texttt{congruenceClosureAlgorithm} and \texttt{createDAG} functions;
+    \item \texttt{dag\_FL.py} in the \texttt{UNION} function;
+    \item \texttt{node\_Fl.py} in the \texttt{MERGE} function.
+\end{enumerate}
+The idea was to create a forbidden list for every node in \texttt{F\_plus}, which is the list of the equality
+formulas. The program checks if a formula in F\_plus is in F\_minus. This means that if a formula is both equality 
+and disequality formulas the algorithm return UNSAT.\\
+During the CCA before call the MERGE s t recursively the program check if s is in the forbidden list of t or vice versa
+and if it is true the program return False.\\
+I decide to implement the forbidden list in this way because I think that it is the most efficient way to implement it.
+
+
 \section{Results}
 
 In this section we show the results obtain with the algorithm.
 
-\subsection{Table}
+\subsection{Table Without Forbidden List with Parser}
 \begin{tabular}{ |p{6cm}||p{4.5cm}|p{3cm}|p{3cm}|  }
  \hline
  \multicolumn{4}{|c|}{Experiments} \\
@@ -126,5 +144,43 @@ In this section we show the results obtain with the algorithm.
  \hline
 \end{tabular}
 
+\subsection{Table Without Forbidden List}
+\begin{tabular}{ |p{10cm}||p{3cm}|p{3cm}|  }
+ \hline
+ \multicolumn{3}{|c|}{Experiments} \\
+ \hline
+ Formulas&Satisfiability&Time execution\\
+ \hline
+ -f(f(f(a)))=a and f(f(f(f(f(a)))))=a and f(a)!=a  &UNSAT&  0.001177\\
+ -f(a)=b and f(a)!=b & UNSAT   &0.000168\\
+ -x=y and f(x)!=f(y)x=y and f(x)!=f(y)& UNSAT&  0.000255\\
+ -f(x)=f(y) and x!=y & SAT&  0.00052022\\
+ -f(g(a))=g(f(a)) and f(g(f(b)))=a and f(b)=a and g(f(a))!=a & SAT&0.00199\\
+ -f(a,b)=a and f(f(a,b),b)!=a& SAT&0.0003209\\
+ \hline
+\end{tabular}
+
+\subsection{Table With Forbidden List}
+\begin{tabular}{ |p{10cm}||p{3cm}|p{3cm}|  }
+    \hline
+    \multicolumn{3}{|c|}{Experiments} \\
+    \hline
+    Formulas&Satisfiability&Time execution\\
+    \hline
+    -f(f(f(a)))=a and f(f(f(f(f(a)))))=a and f(a)!=a  &UNSAT&  0.00130\\
+    -f(a)=b and f(a)!=b & UNSAT   &0.000340\\
+    -x=y and f(x)!=f(y)x=y and f(x)!=f(y)& UNSAT&  0.00518\\
+    -f(x)=f(y) and x!=y & SAT&  0.0004017\\
+    -f(g(a))=g(f(a)) and f(g(f(b)))=a and f(b)=a and g(f(a))!=a & SAT&0.001194\\
+    -f(a,b)=a and f(f(a,b),b)!=a& SAT&0.0007009\\
+    \hline
+   \end{tabular}
+You can find other results in the \texttt{output} folder.
+
+\section{Conclusion}
+The algorithm witout or with Forbidden List with my example are similar so I can't say if the 
+forbidden list version is better or not. 
+It was a very interesting project because I learned a lot of things about the Congruence Closure Algorithm and 
+I spend a lot of time for this project but I think that it was worth it.
 
 \end{document}

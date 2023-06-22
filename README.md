@@ -13,12 +13,18 @@ Inside the ***classes*** folder, you will find two important classes: *dag* and 
 In the ***input*** and ***output*** folders there are two types of files:
 1. ***input.txt*** and ***output.txt*** : the former contains the formulas in the normal form and in the latter you will find the algorithm's resulting outcomes.
 2. ***inputToParser.txt*** and ***outputToParser.txt*** : the former containsFormulas that must be parsed and in the latter you will find the algorithm's resulting outcomes.
+3. in ***outputFL.txt*** we found the result of the algorithm with Forbidden List.
 
 ## How to run the code
 Use the following terminal commands within the folder: 
 > python3 mainProgram.py 
 
 > python3 theParser.py
+
+For the version with Forbidden List:
+
+> python3 mainProgramWithFL.py
+
 
 ### *Libraries*
 1. queue

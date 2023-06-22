@@ -1,11 +1,12 @@
 import time
 import sys
-sys.path.insert(0, '/home/leonardo/Scrivania/Uni/automatedReasoning/congruence-closure-AR/code')
-from cca import start_program
 
-filename = "/home/leonardo/Scrivania/Uni/automatedReasoning/congruence-closure-AR/input/input.txt"
+sys.path.insert(0, '/Users/leonardozecchin/uni/automatedReasoning/congruence-closure-AR/code')
+from cca_fl import start_program
+
+filename = "/Users/leonardozecchin/uni/automatedReasoning/congruence-closure-AR/input/input.txt"
 fin = open(filename, "r")
-fout = open("/home/leonardo/Scrivania/Uni/automatedReasoning/congruence-closure-AR/output/output1.txt", "w")
+fout = open("/Users/leonardozecchin/uni/automatedReasoning/congruence-closure-AR/output/output.txt", "w")
 lines = fin.readlines()
 
 for i,line in enumerate(lines):
